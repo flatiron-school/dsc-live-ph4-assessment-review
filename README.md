@@ -18,7 +18,6 @@ Principal Component Analysis creates a set of features called principal compenen
 
 > Your answer here
 
-##SOLUTION
 
 The first principal component points in the direction that explains the most variance of the original feature set.  Each principal component is composed of a combination of the original components. A larger weight in first principal component indicates a larger variance in the original feature set.
 
@@ -26,7 +25,6 @@ Why is scaling important for PCA?
 
 > Your answer here
 
-##SOLUTION
 
 Scaling is important because variance in a feature measured in a relatively small unit can be just as or more important than a feature measured in a large unit.  In other words, the dependent variable may depend more on the feature with the smaller unit than the large.  When transforming a dataset with PCA, the PCA object finds the direction that explains the most total variance in the feature set.  It will then tend to identify features with larger units as the most important.  By scaling, the unit is taken out of the picture.  PCA will be able to identify features whose original scale is smaller, but whose variation correlates more closely with the dependent feature.  
 
@@ -38,7 +36,6 @@ What are some reasons for using PCA?
 
 > Your answer here
 
-##SOLUTION
 
 1. PCA can speed up computation time. 
 2. PCA can help with overfitting and decrease the overall prediction error of the model.
