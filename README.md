@@ -18,33 +18,20 @@ Principal Component Analysis creates a set of features called principal compenen
 
 > Your answer here
 
-##SOLUTION
-
-The first principal component points in the direction that explains the most variance of the original feature set.  Each principal component is composed of a combination of the original components. A larger weight in first principal component indicates a larger variance in the original feature set.
+*YOUR ANSWER HERE*
 
 Why is scaling important for PCA?
 
 > Your answer here
 
-##SOLUTION
-
-Scaling is important because variance in a feature measured in a relatively small unit can be just as or more important than a feature measured in a large unit.  In other words, the dependent variable may depend more on the feature with the smaller unit than the large.  When transforming a dataset with PCA, the PCA object finds the direction that explains the most total variance in the feature set.  It will then tend to identify features with larger units as the most important.  By scaling, the unit is taken out of the picture.  PCA will be able to identify features whose original scale is smaller, but whose variation correlates more closely with the dependent feature.  
-
-Take for example a model that attempts to predict weight of a new born with age of the mother in years and height of the mother in meters.  Without scaling, the total variance of age across all subjects will be much greater than the total variance of height, simply because of the unit.  If one fits a PCA object to height and age, the first principal component will be more heavily influenced by age.  However, the height of the mother likely is a better predictor than age, but because of its relatively small variance in the original unit (meters), its influence is obscured. By scaling, PCA will consider the relative variance of height and age without regard for the unit. 
-
+*YOUR ANSWER HERE*
 
 What are some reasons for using PCA?
 
 
 > Your answer here
 
-##SOLUTION
-
-1. PCA can speed up computation time. 
-2. PCA can help with overfitting and decrease the overall prediction error of the model.
-3. A similar advantage to #2 is that PCA eliminates multicollinearity.  Because each component is built orthogonally to the last, all multicollinearity is eliminated.  
-4. PCA can be used for visualization.  Reducing the original data set to two dimensions allows a representation of the data to be plotted on an x-y plane.
-
+*YOUR ANSWER HERE*
 
 How can one determine how many principle components to use in a model?
 
