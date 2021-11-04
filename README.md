@@ -8,64 +8,47 @@ TOC:
   - [Clustering](#clust)
 
 
-
-```python
-# Students, ignore this cell
-%load_ext autoreload
-%autoreload 2
-
-import sys
-sys.path.append('../../..')
-
-from new_caller.random_student_engager.student_caller import CohortCaller
-from new_caller.random_student_engager.student_list import avocoder_toasters
-
-caller = CohortCaller(avocoder_toasters)
-```
-
-    hello
-
-
 <a id='pca'></a>
 
 # PCA
 
-When creating principle components, PCA aims to find a vector in the direction of our feature space that is fit to what?
+When creating principle components, PCA aims to find a vectors in the direction of our feature space that is fit to what?
+
+Principal Component Analysis creates a set of features called principal compenents. This reduces the dimensions of our data set from the original `n` components.  The components are built successively.  Describe what the first principal component represents in relation to the original feature set.
 
 > Your answer here
 
+##SOLUTION
 
-```python
-caller.call_n_students(1)
-```
+The first principal component points in the direction that explains the most variance of the original feature set.  Each principal component is composed of a combination of the original components. A larger weight in first principal component indicates a larger variance in the original feature set.
 
 Why is scaling important for PCA?
 
 > Your answer here
 
+##SOLUTION
 
-```python
-caller.call_n_students(1)
-```
+Scaling is important because variance in a feature measured in a relatively small unit can be just as or more important than a feature measured in a large unit.  In other words, the dependent variable may depend more on the feature with the smaller unit than the large.  When transforming a dataset with PCA, the PCA object finds the direction that explains the most total variance in the feature set.  It will then tend to identify features with larger units as the most important.  By scaling, the unit is taken out of the picture.  PCA will be able to identify features whose original scale is smaller, but whose variation correlates more closely with the dependent feature.  
+
+Take for example a model that attempts to predict weight of a new born with age of the mother in years and height of the mother in meters.  Without scaling, the total variance of age across all subjects will be much greater than the total variance of height, simply because of the unit.  If one fits a PCA object to height and age, the first principal component will be more heavily influenced by age.  However, the height of the mother likely is a better predictor than age, but because of its relatively small variance in the original unit (meters), its influence is obscured. By scaling, PCA will consider the relative variance of height and age without regard for the unit. 
+
 
 What are some reasons for using PCA?
 
 
 > Your answer here
 
+##SOLUTION
 
-```python
-caller.call_n_students(1)
-```
+1. PCA can speed up computation time. 
+2. PCA can help with overfitting and decrease the overall prediction error of the model.
+3. A similar advantage to #2 is that PCA eliminates multicollinearity.  Because each component is built orthogonally to the last, all multicollinearity is eliminated.  
+4. PCA can be used for visualization.  Reducing the original data set to two dimensions allows a representation of the data to be plotted on an x-y plane.
+
 
 How can one determine how many principle components to use in a model?
 
 > Your answer here
-
-
-```python
-caller.call_n_students(1)
-```
 
 # Now let's implement PCA in code.
 
@@ -102,19 +85,9 @@ For NLP data, what is the entire data of records called?
 
 > your answer here
 
-
-```python
-caller.call_n_students(1)
-```
-
 What is an individual record called?
 
 > your answer here
-
-
-```python
-caller.call_n_students(1)
-```
 
 What is a group of two words that appear next to one-another in a document?
 
@@ -124,28 +97,13 @@ What is a high frequency, semantically low value word called?
 
 > Your answer here
 
-
-```python
-caller.call_n_students(1)
-```
-
 List the preprocessing steps we can employ to create a cleaner feature set to our models.
 
 > Your answer here
 
-
-```python
-caller.call_n_students(1)
-```
-
 Explain the difference between the two main vectorizors we employ to transform the data into the document-term matrix.
 
 > Your answer here
-
-
-```python
-caller.call_n_students(1)
-```
 
 # NLP Code
 
@@ -196,11 +154,6 @@ policies.head()
 # Tune some hyperparameters of the vectorizer and assess the performance
 ```
 
-
-```python
-caller.call_n_students(1)
-```
-
 <a id='ts'></a>
 
 # Time Series
@@ -225,21 +178,11 @@ With the data above, what is the first step in transforming it into data suitabl
 # Perform that step in code
 ```
 
-
-```python
-caller.call_n_students(1)
-```
-
 What types of patterns might we expect to find in our time series datasets?
 
 
 ```python
 # plot the time series
-```
-
-
-```python
-caller.call_n_students(1)
 ```
 
 What type of patterns do you see in the above plot?
@@ -248,25 +191,10 @@ What type of patterns do you see in the above plot?
 
 
 ```python
-caller.call_n_students(1)
-```
-
-
-```python
 # Add to the plot to visualize patterns by looking at summary statistics across a window of time.
 ```
 
-
-```python
-caller.call_n_students(1)
-```
-
 What are some ways to remove those trends? 
-
-
-```python
-caller.call_n_students(1)
-```
 
 What is the goal of removing those trends?
 
@@ -277,19 +205,9 @@ What is the goal of removing those trends?
 # Attempt to make the series stationary using differencing
 ```
 
-
-```python
-caller.call_n_students(1)
-```
-
 How can we diagnose whether we have successfully removed the trends?
 
 > Your answer here
-
-
-```python
-caller.call_n_students(1)
-```
 
 Use the Augmented Dickey Fuller test to see if the detrended data is ready for modeling
 
@@ -297,13 +215,6 @@ Use the Augmented Dickey Fuller test to see if the detrended data is ready for m
 ```python
 # your code here
 ```
-
-
-```python
-caller.call_n_students(1)
-```
-
-<a id='pca'></a>
 
 <a id='clust'></a>
 
@@ -313,19 +224,9 @@ Question: What is the difference between supervised and unsupervised learning?
 
 > Your answer here
 
-
-```python
-caller.call_n_students(1)
-```
-
 Describe how the kmeans algorithm updates its cluster centers after initialization.
 
 > Your answer here
-
-
-```python
-caller.call_n_students(1)
-```
 
 What is inertia, and how does kmeans use inertia to determine the best estimator?
 
@@ -338,21 +239,11 @@ from sklearn.cluster import KMeans
 KMeans()
 ```
 
-
-```python
-caller.call_n_students(1)
-```
-
 What other metric do we have to score the clusters which are formed?
 
 Describe the difference between it and inertia.
 
 > Your answer here
-
-
-```python
-caller.call_n_students(1)
-```
 
 # Code Cluster Practice with Heirarchical Agglomerative Clustering
 
@@ -403,9 +294,4 @@ y = data['target']
 
 ```python
 # your code here
-```
-
-
-```python
-
 ```
