@@ -14,7 +14,7 @@ TOC:
 
 Principal Component Analysis creates a set of features called principal compenents. PCA reduces the dimensions of our data set from the original n number of features to a specified number of components.  
 
-The components are built successively.  Describe what the first principal component represents in relation to the original feature set.
+Describe what the first principal component represents in relation to the original feature set.
 
 > Your answer here
 
@@ -45,6 +45,8 @@ How can one determine how many principle components to use in a model?
 ```python
 import pandas as pd
 from sklearn.datasets import  load_breast_cancer
+import matplotlib.pyplot as plt
+
 data = load_breast_cancer()
 X = pd.DataFrame(data['data'], columns = data['feature_names'])
 X.head()
@@ -416,12 +418,78 @@ With the data above, what is the first step in transforming it into data suitabl
 
 > Your answer here
 
+*YOUR ANSWER HERE*
+
 
 ```python
 # Perform that step in code
 ```
 
+
+```python
+ap.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Month</th>
+      <th>#Passengers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1949-01</td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1949-02</td>
+      <td>118</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1949-03</td>
+      <td>132</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1949-04</td>
+      <td>129</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1949-05</td>
+      <td>121</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
 What types of patterns might we expect to find in our time series datasets?
+
+*YOUR ANSWER HERE*
 
 
 ```python
@@ -432,6 +500,8 @@ What type of patterns do you see in the above plot?
 
 > Your answer here
 
+*YOUR ANSWER HERE*
+
 
 ```python
 # Add to the plot to visualize patterns by looking at summary statistics across a window of time.
@@ -439,18 +509,22 @@ What type of patterns do you see in the above plot?
 
 What are some ways to remove those trends? 
 
-What is the goal of removing those trends?
-
 > Your answer here
+
+*YOUR ANSWER HERE*
+
+Attempt to make the series stationary using differencing
 
 
 ```python
-# Attempt to make the series stationary using differencing
+# your code here
 ```
 
 How can we diagnose whether we have successfully removed the trends?
 
 > Your answer here
+
+*YOUR ANSWER HERE*
 
 Use the Augmented Dickey Fuller test to see if the detrended data is ready for modeling
 
@@ -463,13 +537,11 @@ Use the Augmented Dickey Fuller test to see if the detrended data is ready for m
 
 # Clustering
 
-Question: What is the difference between supervised and unsupervised learning?
-
-> Your answer here
-
 Describe how the kmeans algorithm updates its cluster centers after initialization.
 
 > Your answer here
+
+*YOUR ANSWER HERE*
 
 What is inertia, and how does kmeans use inertia to determine the best estimator?
 
@@ -477,16 +549,28 @@ What is inertia, and how does kmeans use inertia to determine the best estimator
 
 
 ```python
+# look at the docstring for help
 from sklearn.cluster import KMeans
 
 KMeans()
 ```
+
+
+
+
+    KMeans()
+
+
+
+*YOUR ANSWER HERE*
 
 What other metric do we have to score the clusters which are formed?
 
 Describe the difference between it and inertia.
 
 > Your answer here
+
+*YOUR ANSWER HERE*
 
 # Code Cluster Practice with Heirarchical Agglomerative Clustering
 
@@ -530,11 +614,4 @@ y = data['target']
 
 ```python
 # Determine which is a better number
-```
-
-# Bonus: Use PCA to visualize in two dimensions the cluster groups of the best metric.
-
-
-```python
-# your code here
 ```
