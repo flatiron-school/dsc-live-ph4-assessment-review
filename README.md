@@ -284,29 +284,43 @@ print('The first two principal components explain about 63% of the variance')
 
 # NLP
 
-For NLP data, what is the entire data of records called?
 
-> your answer here
+```python
+# Each sentence is a document
+sentence_one = "Harry Potter is the best young adult book about wizards"
+sentence_two = "Um, EXCUSE ME! Ever heard of Earth Sea?"
+sentence_three = "I only like to read non-fiction.  It makes me a better person."
 
-What is an individual record called?
+# The corpus is composed of all of the documents
+corpus = [sentence_one, sentence_two, sentence_three]
+```
 
-> your answer here
+Describe what preproccessing steps to take in order to isolate the semantically valuable components of the corpus.
 
-What is a group of two words that appear next to one-another in a document?
+==SOLUTION==
+1. Remove punctuation.
+2. Make all tokens lowercase.
+3. Remove stop words. 
+4. Stem and lemmatize. 
 
-> Your answer here
+Describe the rows and columns of the document term matrix that would result from vectorizing the above corpus. 
 
-What is a high frequency, semantically low value word called? 
+==SOLUTION==
 
-> Your answer here
+In the document term matrix, each row would represent a sentence.  There would be as many columns as there are tokens, after preprocessing, accross the entire corpus.  
 
-List the preprocessing steps we can employ to create a cleaner feature set to our models.
 
-> Your answer here
+Describe what the values within the document-term matrix could be.
 
-Explain the difference between the two main vectorizors we employ to transform the data into the document-term matrix.
+==SOLUTION==
 
-> Your answer here
+The values are some representation of frequency.  If a count vectorizor is used, the values are counts of how many times a given word occurs in a sentence. 
+
+Describe how to calculate a TF-IDF score.
+
+==SOLUTION==
+
+The term frequency component of TFIDF counts the number of times a term shows up in a given document. This number is multiplied by the inverse document frequency. IDF is calculated as the log of the total number of documents divided by the number of documents the term appears in. If the term appears in less documents, the IDF score will be larger. 
 
 # NLP Code
 
@@ -326,14 +340,100 @@ def warren_not_warren(label):
         return 0
     
 policies['candidate'] = policies['candidate'].apply(warren_not_warren)
+```
 
+The dataframe loaded above consists of policies of 2020 Democratic presidential hopefuls. The `policy` column holds text describing the policies themselves.  The `candidate` column indicates whether it was or was not an Elizabeth Warren policy.
+
+
+```python
 policies.head()
 ```
 
 
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>name</th>
+      <th>policy</th>
+      <th>candidate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>100% Clean Energy for America</td>
+      <td>As published on Medium on September 3rd, 2019:...</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>A Comprehensive Agenda to Boost America’s Smal...</td>
+      <td>Small businesses are the heart of our economy....</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>A Fair and Welcoming Immigration System</td>
+      <td>As published on Medium on July 11th, 2019:\nIm...</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>A Fair Workweek for America’s Part-Time Workers</td>
+      <td>Working families all across the country are ge...</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>A Great Public School Education for Every Student</td>
+      <td>I attended public school growing up in Oklahom...</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+The documents for activity are in the `policy` column, and the target is candidate. 
+
+
 ```python
-# split into train and test set 
+# split into train and test set with default arguments and random_state=42
 # note: for demonstration purposes, we will not use cross-validation here nor a holdout set.
+# note: whether you pass an array or a dataframe to as the feature set will change how it is
+# passed to the vectorizer
+```
+
+
+```python
+#__SOLUTION__
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(policies['policy'], policies['candidate'], 
+                                                   random_state=42)
 ```
 
 
@@ -343,9 +443,38 @@ policies.head()
 
 
 ```python
+#__SOLUTION__
+from sklearn.feature_extraction.text import CountVectorizer
+cv = CountVectorizer()
+
+```
+
+
+```python
 # Transform train and test sets with the Count Vectorizer
 # then fit a logistic regression model on it.
+# if you get the AttributeError: 'str' object has no attribute 'decode', pass solver='liblinear'
 ```
+
+
+```python
+#__SOLUTION__
+from sklearn.linear_model import LogisticRegression
+
+cv.fit(X_train)
+X_train_cv = cv.transform(X_train)
+X_test_cv = cv.transform(X_test)
+
+lr = LogisticRegression(solver='liblinear')
+lr.fit(X_train_cv, y_train)
+```
+
+
+
+
+    LogisticRegression(solver='liblinear')
+
+
 
 
 ```python
@@ -354,8 +483,62 @@ policies.head()
 
 
 ```python
+#__SOLUTION__
+print(lr.score(X_train_cv, y_train))
+print(lr.score(X_test_cv, y_test))
+```
+
+    1.0
+    0.8958333333333334
+
+
+
+```python
 # Tune some hyperparameters of the vectorizer and assess the performance
 ```
+
+
+```python
+#__SOLUTION__
+def htune_cv(cv, X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test):
+    
+    '''Pass in a vectorizer with a set of hyperameters
+    and print the train and test scores of a logistic
+    model fit on a vectorized version of X.
+    '''
+    
+    cv.fit(X_train)
+    X_train_cv = cv.transform(X_train)
+    X_test_cv = cv.transform(X_test)
+
+    lr = LogisticRegression(solver='liblinear')
+
+    lr.fit(X_train_cv, y_train)
+    print(lr.score(X_train_cv, y_train))
+    print(lr.score(X_test_cv, y_test))
+```
+
+
+```python
+#__SOLUTION__
+cv = CountVectorizer(stop_words='english')
+htune_cv(cv)
+```
+
+    1.0
+    0.8958333333333334
+
+
+
+```python
+#__SOLUTION__
+cv = CountVectorizer(stop_words='english', max_features=100)
+htune_cv(cv)
+```
+
+    1.0
+    0.9166666666666666
+
 
 <a id='ts'></a>
 
